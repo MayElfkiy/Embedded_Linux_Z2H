@@ -9,7 +9,7 @@ else
   (crontab -l 2>/dev/null; echo "*/30 * * * * sdel.sh") | crontab -  #adding the script to cron to run automatically
 fi
 
-find ~/TRASH -type f -mtime +2 -exec rm -f {} \; 	#remove files older than 2 days
+find ~/TRASH -type f -atime +2 -exec rm -f {} \; 	#remove files older than 2 days
 
 for fileN in "$@"
 do
