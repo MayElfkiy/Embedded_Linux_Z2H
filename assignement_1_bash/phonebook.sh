@@ -7,25 +7,29 @@ then
 else
 	touch phonebook.txt
 fi
-
+sed -r '/^\s*$/d' phonebook.txt
 
 if [ "$1" = "-i" ]
 then
-	echo $2 $3 $4 >> phonebook.txt
+	read -p 'insert name: ' varname
+	read -p 'insert phone: ' varphone
+	read -p 'insert email: ' varemail
+
+	echo $varname : $varphone $varemail >> phonebook.txt
+
 elif [ "$1" = "-v" ]
 then
 	cat phonebook.txt
 elif [ "$1" = "-s" ]
 then
-grep "$2" phonebook.txt
+read -p 'insert name: ' varname
+grep "$varname" phonebook.txt
 elif [ "$1" = "-d" ]
 then
-sed -i "/$2/c\ " phonebook.txt
+read -p 'insert name: ' varname
+
+sed -i "/$varname :/c\ " phonebook.txt
 sed -r '/^\s*$/d' phonebook.txt
-#grep -rl "$2" phonebook.txt | xargs sed -i '' phonebook.txt
-#grep "$2" phonebook.txt | sed -i 'c\' phonebook.txt
-# | sed -i 'c\' phonebook.txt
-#sed -ri -e "c/''/''" $(grep -Elr --binary-files=without-match "$2" "phonebook.txt")
 elif [ "$1" = "-e" ]
 then
 cat /dev/null > phonebook.txt
