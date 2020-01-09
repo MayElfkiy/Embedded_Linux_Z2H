@@ -13,10 +13,10 @@ find ~/TRASH -type f -mtime +2 -exec rm -f {} \; 	#remove files older than 2 day
 
 for fileN in "$@"
 do
-if file $fileN* | grep -q "compressed data"; then 	#check whether the file is already compressed
+if file $fileN.gz | grep -q "compressed data"; then 	#check whether the file is already compressed
 	echo "file $fileN is already zipped" 
 else
-	gzip $fileN					#compress file
+	gzip $fileN.*					#compress file
 fi
-mv $fileN* ~/TRASH					#move file to trash
+mv $fileN.gz ~/TRASH					#move file to trash
 done
